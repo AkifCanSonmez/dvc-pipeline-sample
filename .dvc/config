@@ -1,0 +1,5 @@
+[core]
+    remote = mybucket
+    autostage = true
+['remote "mybucket"']
+    url = gdrive://1Lij-f-ZX93aGtBlLMKD485jqPsrpv-CT

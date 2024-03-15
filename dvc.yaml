@@ -1,0 +1,20 @@
+stages:
+  collect:
+    cmd: python3 collect.py
+    outs:
+    - dataset:
+        persist: true
+  create_new_version:
+    cmd: ./create_and_push_tag.sh
+    deps:
+    - dataset
+  train:
+    cmd: export NEW_TAG=$(cat new_tag.txt) && python train.py $NEW_TAG
+    deps:
+    - new_tag.txt
+    outs:
+    - models
+  push_model:
+    cmd: ./push_model_changes.sh
+    deps:
+    - models/
