@@ -5,26 +5,34 @@ stages:
     outs:
     - path: dataset
       hash: md5
-      md5: 448b1542586002a6e1964a6284f8bb57.dir
-      size: 981930
-      nfiles: 5
+      md5: f7083fa244fc57ef9925c2f0d8780084.dir
+      size: 1981495
+      nfiles: 10
   create_new_version:
     cmd: ./create_and_push_tag.sh
     deps:
     - path: dataset
       hash: md5
-      md5: 448b1542586002a6e1964a6284f8bb57.dir
-      size: 981930
-      nfiles: 5
+      md5: f7083fa244fc57ef9925c2f0d8780084.dir
+      size: 1981495
+      nfiles: 10
   train:
     cmd: export NEW_TAG=$(cat new_tag.txt) && python train.py $NEW_TAG
     deps:
     - path: new_tag.txt
       hash: md5
-      md5: 4f98f59e877ecb84ff75ef0fab45bac5
+      md5: e30260020baeb0398ff07b37dd33ed16
       size: 3
     outs:
     - path: models
+      hash: md5
+      md5: e29427384355bf811148a697ed245a11.dir
+      size: 177658872
+      nfiles: 1
+  push_model:
+    cmd: ./push_model_changes.sh
+    deps:
+    - path: models/
       hash: md5
       md5: b89b4c1483f10826f898dbd5344b610d.dir
       size: 177658872
